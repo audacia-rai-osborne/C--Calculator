@@ -23,6 +23,9 @@ if (operationType == "/" && operationTypeTwo != "/")
     else if (operationTypeTwo == "*")
     {
         Console.WriteLine(math.MultiplyAnswer(firstResult, thirdNumber));
+    }else if (operationTypeTwo == "")
+    {
+        Console.WriteLine(firstResult);
     }
 }
 else if (operationTypeTwo == "/" && operationType != "/")
@@ -55,6 +58,9 @@ else if (operationType == "*" && operationTypeTwo != "*")
     else if (operationTypeTwo == "/")
     {
         Console.WriteLine(math.DivideAnswer(firstResult, thirdNumber));
+    }else if (operationTypeTwo == "")
+    {
+        Console.WriteLine(firstResult);
     }
 }
 else if (operationType != "*" && operationTypeTwo == "*")
@@ -87,6 +93,9 @@ else if (operationType == "+" && operationTypeTwo != "+")
     else if (operationTypeTwo == "*")
     {
         Console.WriteLine(math.MultiplyAnswer(firstResult, thirdNumber));
+    }else if (operationTypeTwo == "")
+    {
+        Console.WriteLine(firstResult);
     }
 }
 else if (operationType != "+" && operationTypeTwo == "+")
@@ -119,6 +128,10 @@ else if (operationType == "-" && operationTypeTwo != "-")
     else if (operationTypeTwo == "*")
     {
         Console.WriteLine(math.MultiplyAnswer(firstResult, thirdNumber));
+    }
+    else if (operationTypeTwo == "")
+    {
+        Console.WriteLine(firstResult);
     }
 }
 else if (operationType != "-" && operationTypeTwo == "-")
