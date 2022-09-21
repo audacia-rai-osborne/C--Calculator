@@ -1,319 +1,445 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-var math = new Arithmetic();
-int firstNumber;
-int secondNumber;
-int firstResult;
+var add = new Addition();
+var sub = new Subtraction();
+var multi = new Multiply();
+var divide = new Divide();
+var mod = new Modulus();
 
-Console.WriteLine("How many operators does your calculation have?");
-int numberOfOperators = Convert.ToInt32(Console.ReadLine());
+List<Calculator_App.iArithmetic> _all_operators;
+
+_all_operators = new List<Calculator_App.iArithmetic>()
+            {
+                new Addition(),
+                new Subtraction(),
+                new Multiply(),
+                new Divide(),
+                new Modulus(),
+                new PowerOfAnswer()
+            };
+
+List<Calculator_App.iSingleDigit> _all_single_operators;
+
+_all_single_operators = new List<Calculator_App.iSingleDigit>()
+            {
+                new SinAnswer(),
+                new LogAnswer(),
+                new SquareRootAnswer()
+            };
+
+
+decimal firstNumber;
+decimal secondNumber;
+decimal thirdNumber;
+int numberOfOperators;
+int numberOfZeros = 0;
+string? operatorType;
+string? operatorTypeTwo;
+
+List<decimal> _numbers = new List<decimal>();
+List<decimal> calcNumbers = new List<decimal>();
+List<string> _operators = new List<string>();
+List<dynamic> calcOperators = new List<dynamic>();
+List<dynamic> _outputResult = new List<dynamic>();
+
+void GetAllInputs() {
+    Console.WriteLine("How many operators does your calculation have?");
+numberOfOperators = Convert.ToInt32(Console.ReadLine());
 
 if (numberOfOperators == 1)
 {
-    Console.WriteLine("What operator would you like to use?");
-    var operatorType = Console.ReadLine();
-    if (operatorType == "sin")
-    {
-        Console.WriteLine("What is the number you'd like to peform this operation on?");
+        Console.WriteLine("What is the first number of this operation?");
         firstNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Your result is - " + math.SinAnswer(firstNumber));
+        _numbers.Add(firstNumber);
+        Console.WriteLine("What operator would you like to use?");
+        operatorType = Console.ReadLine();
+        _operators.Add(operatorType);
+        Console.WriteLine("What is the second number of this operation? If there is none, enter 0");
+        secondNumber = Convert.ToDecimal(Console.ReadLine());
+        _numbers.Add(secondNumber);
     }
-    else if (operatorType == "log")
-    {
-        Console.WriteLine("What is the number you'd like to peform this operation on?");
-        firstNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Your result is - " + math.LogAnswer(firstNumber));
-    }
-    else if (operatorType == "sqrt")
-    {
-        Console.WriteLine("What is the number you'd like to peform this operation on?");
-        firstNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Your result is - " + math.SquareRootAnswer(firstNumber));
-    }else if (operatorType == "+")
-    {
-        Console.WriteLine("What is the first number of your calculation?");
-        firstNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("What is the second number of your calculation?");
-        secondNumber = Convert.ToInt32(Console.ReadLine());
-        math.AddAnswer(firstNumber, secondNumber);
-    }
-    else if (operatorType == "-")
-    {
-        Console.WriteLine("What is the first number of your calculation?");
-        firstNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("What is the second number of your calculation?");
-        secondNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Your result is - " + math.SubtractAnswer(firstNumber, secondNumber));
-    }
-    else if (operatorType == "*")
-    {
-        Console.WriteLine("What is the first number of your calculation?");
-        firstNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("What is the second number of your calculation?");
-        secondNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Your result is - " + math.MultiplyAnswer(firstNumber, secondNumber));
-    }
-    else if (operatorType == "/")
-    {
-        Console.WriteLine("What is the first number of your calculation?");
-        firstNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("What is the second number of your calculation?");
-        secondNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Your result is - " + math.DivideAnswer(firstNumber, secondNumber));
-    }
-    else if (operatorType == "%")
-    {
-        Console.WriteLine("What is the first number of your calculation?");
-        firstNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("What is the second number of your calculation?");
-        secondNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Your result is - " + math.ModulusAnswer(firstNumber, secondNumber));
-    }
-       
 else if (numberOfOperators == 2)
-    {
-        Console.WriteLine("What is the first number of your calculation?");
+{
+        Console.WriteLine("What is the first number of this operation?");
         firstNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("What is the first operation of your calculation?");
-        var operationType = Console.ReadLine();
-        Console.WriteLine("What is the second number of your calculation?");
+        _numbers.Add(firstNumber);
+        Console.WriteLine("What operator would you like to use?");
+        operatorType = Console.ReadLine();
+        _operators.Add(operatorType);
+        Console.WriteLine("What is the second number of this operation?");
         secondNumber = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("What is the second operation of your calculation?");
-        var operationTypeTwo = Console.ReadLine();
-        Console.WriteLine("What is the third number of your calculation?");
-        var thirdNumber = Convert.ToInt32(Console.ReadLine());
-    if (operationTypeTwo == "sin")
-        {
-            firstResult = math.SinAnswer(firstNumber);
-            if (operationType == "+")
-            {
-                Console.WriteLine("Your result is - " + math.AddAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "-")
-            {
-                Console.WriteLine("Your result is - " + math.SubtractAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "*")
-            {
-                Console.WriteLine("Your result is - " + math.MultiplyAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "/")
-            {
-                Console.WriteLine("Your result is - " + math.DivideAnswer(firstNumber, firstResult));
-            }
+        _numbers.Add(secondNumber);
+        Console.WriteLine("What is the second operator of this operation?");
+        operatorTypeTwo = Console.ReadLine();
+        _operators.Add(operatorTypeTwo);
+        Console.WriteLine("What is the third number of your operation?");
+        thirdNumber = Convert.ToInt32(Console.ReadLine());
+        _numbers.Add(thirdNumber);
+    }
+}
 
+void CompleteCalculations() { 
+
+switch (numberOfOperators)
+{
+    case 1:
+            if (_operators[0] == "sin")
+            {
+                calcOperators.Add(_all_single_operators[0]);
+                calcNumbers.Add(_numbers[0]);
+                ListSingleFinalCalculation(calcOperators, calcNumbers);   
+            }
+            else if (_operators[0] == "log")
+            {
+                calcOperators.Add(_all_single_operators[1]);
+                calcNumbers.Add(_numbers[0]);
+                ListSingleFinalCalculation(calcOperators, calcNumbers);
+            }
+            else if(_operators[0] == "sqrt")
+            {
+                calcOperators.Add(_all_single_operators[2]);
+                calcNumbers.Add(_numbers[0]);
+                ListSingleFinalCalculation(calcOperators, calcNumbers);
+            }
+            else if (_operators[0] == "^")
+            {
+                calcOperators.Add(_all_operators[5]);
+                calcNumbers.Add(_numbers[0]);
+                calcNumbers.Add(_numbers[1]);
+                ListSingleFinalCalculation(calcOperators, calcNumbers);
+            }
+            else if (_operators[0] == "+")
+        {
+                calcOperators.Add(_all_operators[0]);
+                ListSingleFinalCalculation(calcOperators, calcNumbers);
+            }
+        else if (_operators[0] == "-")
+        {
+                    calcOperators.Add(_all_operators[1]);
+                    calcNumbers.Add(_numbers[0]);
+                    calcNumbers.Add(_numbers[1]);
+                    ListSingleFinalCalculation(calcOperators, calcNumbers);
+                }
+        else if (_operators[0] == "*")
+        {
+                        calcOperators.Add(_all_operators[2]);
+                        calcNumbers.Add(_numbers[0]);
+                        calcNumbers.Add(_numbers[1]);
+                        ListSingleFinalCalculation(calcOperators, calcNumbers);
+
+                    }
+        else if (_operators[0] == "/")
+        {
+    calcOperators.Add(_all_operators[3]);
+    calcNumbers.Add(_numbers[0]);
+    calcNumbers.Add(_numbers[1]);
+    ListSingleFinalCalculation(calcOperators, calcNumbers);
+}
+        else if (_operators[0] == "%")
+    {
+    calcOperators.Add(_all_operators[4]);
+    calcNumbers.Add(_numbers[0]);
+    calcNumbers.Add(_numbers[1]);
+    ListSingleFinalCalculation(calcOperators, calcNumbers);
+
+}
+        break;
+
+    case 2:
+        switch (_operators[0])
+        {
+            case "^":
+               if (_operators[1] == "+")
+               {
+                    calcOperators.Add(_operators[0]);
+                    calcOperators.Add(_operators[1]);
+                    calcNumbers.Add(_numbers[0]);
+                    calcNumbers.Add(_numbers[1]);
+                    calcNumbers.Add(_numbers[2]);
+                    ListSingleFinalCalculation(calcOperators, calcNumbers);
         }
-        else if(operationTypeTwo == "log")
+        else if (_operators[1] == "-")
         {
-            firstResult = math.LogAnswer(firstNumber);
-            if (operationType == "+")
-            {
-                Console.WriteLine("Your result is - " + math.AddAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "-")
-            {
-                Console.WriteLine("Your result is - " + math.SubtractAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "*")
-            {
-                Console.WriteLine("Your result is - " + math.MultiplyAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "/")
-            {
-                Console.WriteLine("Your result is - " + math.DivideAnswer(firstNumber, firstResult));
-            }
+            calcOperators.Add(_operators[0]);
+            calcOperators.Add(_operators[1]);
+            calcNumbers.Add(_numbers[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
         }
-        else if(operationTypeTwo == "sqrt")
+        else if (_operators[1] == "*")
         {
-            firstResult = math.SinAnswer(firstNumber);
-            if (operationType == "+")
-            {
-                Console.WriteLine("Your result is - " + math.AddAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "-")
-            {
-                Console.WriteLine("Your result is - " + math.SubtractAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "*")
-            {
-                Console.WriteLine("Your result is - " + math.MultiplyAnswer(firstNumber, firstResult));
-            }else if(operationType == "/")
-            {
-                Console.WriteLine("Your result is - " + math.DivideAnswer(firstNumber, firstResult));
-            }
-        }else if(operationType == "^" && operationTypeTwo != "^")
+            calcOperators.Add(_operators[0]);
+            calcOperators.Add(_operators[1]);
+            calcNumbers.Add(_numbers[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
+                }
+                else if (_operators[1] == "/")
+                {
+                   calcOperators.Add(_operators[0]);
+            calcOperators.Add(_operators[1]);
+            calcNumbers.Add(_numbers[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
+                }
+                    break;
+
+            case "/":
+
+        if (_operators[1] == "^")
         {
-            // firstResult = math.PowerOfAnswer(firstNumber, secondNumber);
+        calcOperators.Add(_operators[1]);
+        calcOperators.Add(_operators[0]);
+        calcNumbers.Add(_numbers[1]);
+        calcNumbers.Add(_numbers[2]);
+        calcNumbers.Add(_numbers[0]);
+        ListSingleFinalCalculation(calcOperators, calcNumbers);
         }
-        else if (operationType != "^" && operationTypeTwo == "^")
+        else if (_operators[1] == "+")
+                {
+                   calcOperators.Add(_operators[0]);
+                   calcOperators.Add(_operators[1]);
+                   calcNumbers.Add(_numbers[0]);
+                   calcNumbers.Add(_numbers[1]);
+                   calcNumbers.Add(_numbers[2]);
+                }
+                else if (_operators[1] == "-")
+                {
+            calcOperators.Add(_operators[0]);
+            calcOperators.Add(_operators[1]);
+            calcNumbers.Add(_numbers[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+                    }
+                else if (_operators[1] == "*")
+                {
+            calcOperators.Add(_operators[0]);
+            calcOperators.Add(_operators[1]);
+            calcNumbers.Add(_numbers[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
+                    }
+                else if (_operators[1] == "/")
+                {
+            calcOperators.Add(_operators[0]);
+            calcOperators.Add(_operators[1]);
+            calcNumbers.Add(_numbers[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
+                    }
+;
+
+                    break;
+
+            case "*":
+        if (_operators[1] == "+")
         {
-           //  firstResult = math.PowerOfAnswer(firstNumber, secondNumber);
+            calcOperators.Add(_operators[0]);
+            calcOperators.Add(_operators[1]);
+            calcNumbers.Add(_numbers[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
         }
-        else if (operationType == "/" && operationTypeTwo != "/")
+        else if (_operators[1] == "-")
         {
-            firstResult = math.DivideAnswer(firstNumber, secondNumber);
-            if (operationTypeTwo == "+")
-            {
-                Console.WriteLine("Your result is - " + math.AddAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "-")
-            {
-                Console.WriteLine("Your result is - " + math.SubtractAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "*")
-            {
-                Console.WriteLine("Your result is - " + math.MultiplyAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "")
-            {
-                Console.WriteLine("Your result is - " + firstResult);
-            }
+            calcOperators.Add(_operators[0]);
+            calcOperators.Add(_operators[1]);
+            calcNumbers.Add(_numbers[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
         }
-        else if (operationTypeTwo == "/" && operationType != "/")
+        else if (_operators[1] == "/")
         {
-            firstResult = math.DivideAnswer(secondNumber, thirdNumber);
-            if (operationType == "+")
-            {
-                Console.WriteLine("Your result is - " + math.AddAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "-")
-            {
-                Console.WriteLine("Your result is - " + math.SubtractAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "*")
-            {
-                Console.WriteLine("Your result is - " + math.MultiplyAnswer(firstNumber, firstResult));
-            }
+            calcOperators.Add(_operators[1]);
+            calcOperators.Add(_operators[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            calcNumbers.Add(_numbers[0]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
         }
-        else if (operationType == "*" && operationTypeTwo != "*")
+        else if (_operators[1] == "^")
         {
-            firstResult = math.MultiplyAnswer(firstNumber, secondNumber);
-            if (operationTypeTwo == "+")
-            {
-                Console.WriteLine("Your result is - " + math.AddAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "-")
-            {
-                Console.WriteLine("Your result is - " + math.SubtractAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "/")
-            {
-                Console.WriteLine("Your result is - " + math.DivideAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "")
-            {
-                Console.WriteLine("Your result is - " + firstResult);
-            }
+            calcOperators.Add(_operators[1]);
+            calcOperators.Add(_operators[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            calcNumbers.Add(_numbers[0]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
         }
-        else if (operationType != "*" && operationTypeTwo == "*")
+
+
+        break;
+
+            case "+":
+                {
+                    if (_operators[1] == "-")
+                    {
+                calcOperators.Add(_operators[0]);
+                calcOperators.Add(_operators[1]);
+                calcNumbers.Add(_numbers[0]);
+                calcNumbers.Add(_numbers[1]);
+                calcNumbers.Add(_numbers[2]);
+                ListSingleFinalCalculation(calcOperators, calcNumbers);
+                        }
+                    else if (_operators[1] == "+")
+                    {
+                calcOperators.Add(_operators[0]);
+                calcOperators.Add(_operators[1]);
+                calcNumbers.Add(_numbers[0]);
+                calcNumbers.Add(_numbers[1]);
+                calcNumbers.Add(_numbers[2]);
+                ListSingleFinalCalculation(calcOperators, calcNumbers);
+                        }
+                    else if (_operators[1] == "/")
+                    {
+                calcOperators.Add(_operators[1]);
+                calcOperators.Add(_operators[0]);
+                calcNumbers.Add(_numbers[1]);
+                calcNumbers.Add(_numbers[2]);
+                calcNumbers.Add(_numbers[0]);
+                ListSingleFinalCalculation(calcOperators, calcNumbers);
+                        }
+                    else if (_operators[1] == "*")
+                    {
+                calcOperators.Add(_operators[1]);
+                calcOperators.Add(_operators[0]);
+                calcNumbers.Add(_numbers[1]);
+                calcNumbers.Add(_numbers[2]);
+                calcNumbers.Add(_numbers[0]);
+                ListSingleFinalCalculation(calcOperators, calcNumbers);;
+                        }
+            else if (_operators[1] == "^")
+            {
+            calcOperators.Add(_operators[1]);
+            calcOperators.Add(_operators[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            calcNumbers.Add(_numbers[0]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
+           
+            };
+            break;
+                }
+
+
+            case "-":
+                if (_operators[1] == "+")
+                {
+            calcOperators.Add(_operators[1]);
+            calcOperators.Add(_operators[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            calcNumbers.Add(_numbers[0]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
+                    }else if (_operators[1] == "/")
+                {
+            calcOperators.Add(_operators[1]);
+            calcOperators.Add(_operators[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            calcNumbers.Add(_numbers[0]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
+                    }
+                else if (_operators[1] == "*")
+                {
+            calcOperators.Add(_operators[1]);
+            calcOperators.Add(_operators[0]);
+            calcNumbers.Add(_numbers[1]);
+            calcNumbers.Add(_numbers[2]);
+            calcNumbers.Add(_numbers[0]);
+            ListSingleFinalCalculation(calcOperators, calcNumbers);
+                    }
+        else if (_operators[1] == "^")
         {
-            firstResult = math.MultiplyAnswer(secondNumber, thirdNumber);
-            if (operationType == "+")
-            {
-                Console.WriteLine("Your result is - " + math.AddAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "-")
-            {
-                Console.WriteLine("Your result is - " + math.SubtractAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "/")
-            {
-                Console.WriteLine("Your result is - " + math.DivideAnswer(firstNumber, firstResult));
-            }
+        calcOperators.Add(_operators[1]);
+        calcOperators.Add(_operators[0]);
+        calcNumbers.Add(_numbers[1]);
+        calcNumbers.Add(_numbers[2]);
+        calcNumbers.Add(_numbers[0]);
+        ListSingleFinalCalculation(calcOperators, calcNumbers);
+       
         }
-        else if (operationType == "+" && operationTypeTwo != "+")
-        {
-            firstResult = math.AddAnswer(firstNumber, secondNumber);
-            if (operationTypeTwo == "-")
-            {
-                Console.WriteLine("Your result is - " + math.SubtractAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "/")
-            {
-                Console.WriteLine("Your result is - " + math.DivideAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "*")
-            {
-                Console.WriteLine("Your result is - " + math.MultiplyAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "")
-            {
-                Console.WriteLine("Your result is - " + firstResult);
-            }
+        break;
         }
-        else if (operationType != "+" && operationTypeTwo == "+")
-        {
-            firstResult = math.AddAnswer(secondNumber, thirdNumber);
-            if (operationType == "-")
-            {
-                Console.WriteLine("Your result is - " + math.SubtractAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "/")
-            {
-                Console.WriteLine("Your result is - " + math.DivideAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "*")
-            {
-                Console.WriteLine("Your result is - " + math.MultiplyAnswer(firstNumber, firstResult));
-            }
-        }
-        else if (operationType == "-" && operationTypeTwo != "-")
-        {
-            firstResult = math.SubtractAnswer(firstNumber, secondNumber);
-            if (operationTypeTwo == "+")
-            {
-                Console.WriteLine("Your result is - " + math.AddAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "/")
-            {
-                Console.WriteLine("Your result is - " + math.DivideAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "*")
-            {
-                Console.WriteLine("Your result is - " + math.MultiplyAnswer(firstResult, thirdNumber));
-            }
-            else if (operationTypeTwo == "")
-            {
-                Console.WriteLine("Your result is - " + firstResult);
-            }
-        }
-        else if (operationType != "-" && operationTypeTwo == "-")
-        {
-            firstResult = math.SubtractAnswer(secondNumber, thirdNumber);
-            if (operationType == "+")
-            {
-                Console.WriteLine("Your result is - " + math.AddAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "/")
-            {
-                Console.WriteLine("Your result is - " + math.DivideAnswer(firstNumber, firstResult));
-            }
-            else if (operationType == "*")
-            {
-                Console.WriteLine("Your result is - " + math.MultiplyAnswer(firstNumber, firstResult));
-            }
-        }
-        else if (operationType == "-" && operationTypeTwo == "-")
-        {
-            firstResult = math.SubtractAnswer(firstNumber, secondNumber);
-            Console.WriteLine("Your result is - " + math.SubtractAnswer(firstResult, thirdNumber));
-        }
-        else if (operationType == "+" && operationTypeTwo == "+")
-        {
-            firstResult = math.AddAnswer(firstNumber, secondNumber);
-            Console.WriteLine("Your result is - " + math.AddAnswer(firstResult, thirdNumber));
-        }
-        else if (operationType == "/" && operationTypeTwo == "/")
-        {
-            firstResult = math.DivideAnswer(firstNumber, secondNumber);
-            Console.WriteLine("Your result is - " + math.DivideAnswer(firstResult, thirdNumber));
-        }
-        else if (operationType == "*" && operationTypeTwo == "*")
-        {
-            firstResult = math.MultiplyAnswer(firstNumber, secondNumber);
-            Console.WriteLine("Your result is - " + math.MultiplyAnswer(firstResult, thirdNumber));
-        };
+        break;
+    }
+
+
+void ListSingleFinalCalculation(List<dynamic> operation, List<decimal> numbers )
+{
+    if (operation.Count > 1)
+    {
+        decimal firstResult = operation[0].Do(numbers[0], numbers[1]);
+        decimal result = operation[1].Do(_numbers[3], firstResult);
+        ScientificResult(result);    
+    }
+    else
+    {
+
+        decimal result = operation[0].Do(_numbers[0]);
+
+        ScientificResult(result);
     }
 
 }
+
+void ScientificResult(decimal finalResult){
+        string stringFinalResult = finalResult.ToString("");
+        string[] splitFinalResult = stringFinalResult.Split(".");
+        if (splitFinalResult.Length > 1)
+        {
+            foreach (var item in splitFinalResult[1])
+            {
+                if (item.ToString() == "0")
+                {
+                    numberOfZeros = numberOfZeros + 1;
+                }
+            }
+            if (numberOfZeros >= 7)
+            {
+                _outputResult.Add(splitFinalResult[1][numberOfZeros]);
+                _outputResult.Add('.');
+                _outputResult.Add(splitFinalResult[1][numberOfZeros + 1]);
+                _outputResult.Add(splitFinalResult[1][numberOfZeros + 2]);
+                _outputResult.Add("x 10 ^-");
+                _outputResult.Add(numberOfZeros + 1);
+                Console.WriteLine("Your result is - " + string.Join("", _outputResult));
+            }
+        }
+        else
+        {
+            Console.WriteLine("Your result is - " + stringFinalResult);
+        }
+
+        
+
+       
+    }
+
+}
+
+
+
+GetAllInputs();
+CompleteCalculations();
+
+        
+       
+       
+         
+        
+    
+  
+
+
+
+       
+
 
